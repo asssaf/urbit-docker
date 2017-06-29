@@ -1,0 +1,9 @@
+# libsigsegv is available in testing branch
+sudo sh -c 'echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories'
+
+# fix a build issue
+sudo sed -i 's/\(export CFLAGS=".*\)"/\1 -D_GNU_SOURCE"/' /etc/abuild.conf
+
+sudo apk update
+abuild -r
+

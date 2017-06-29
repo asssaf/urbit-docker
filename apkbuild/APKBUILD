@@ -1,0 +1,28 @@
+# Contributor:
+# Maintainer:
+pkgname=urbit
+pkgver=0.4.5
+pkgrel=0
+pkgdesc="a secure peer-to-peer network of personal servers, built on a clean-slate system software stack"
+url="https://urbit.org/"
+arch="all"
+license="MIT"
+depends="libsigsegv gmp openssl ncurses curl"
+makedepends="gcc automake autoconf ragel cmake re2c libtool gmp-dev libsigsegv-dev curl-dev openssl-dev ncurses-dev linux-headers"
+install=""
+subpackages=""
+source="https://media.urbit.org/dist/src/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	make -j1 all || return 1
+}
+
+package() {
+	cd "$builddir"
+	install -D -m755 bin/urbit ${pkgdir}/usr/bin/urbit
+	install -D -m644 LICENSE.txt ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
+
+sha512sums="d68fe47d41f77b4466e5a08c4b232f4d6cbe5508b062575e4b4f4bc748155aa3c6572cb72d739cf7f9bf5cb20a30d0ad3b2e38d3abf9321bdbfe9610d890d2ab  urbit-0.4.5.tar.gz"
