@@ -14,6 +14,19 @@ $ scripts/run myship
 ...
 ```
 
+### Run as daemon
+```
+$ scripts/run-daemon myship
+<container-id>
+```
+
+Attach to the running daemon using the `<container-id>` from the run-daemon output:
+```
+$ docker exec -ti <container-id> tmux attach
+```
+
+Detach from the session using the tmux binding `C-b d`
+
 ## APK
 If you want to build the apk used by the container by yourself, you can find in the `apkbuild/` directory the APKBUILD script and a Makefile to build the apk using docker.
 
