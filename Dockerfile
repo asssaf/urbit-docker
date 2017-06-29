@@ -10,3 +10,6 @@ RUN apk add --no-cache libsigsegv gmp openssl ncurses curl \
 
 RUN rm /urbit-0.4.5-r0.apk
 
+WORKDIR /urbit
+ENTRYPOINT [ "urbit" ]
+
