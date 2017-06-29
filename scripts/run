@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+SHIP="$1"
+IMAGE="asssaf/urbit-alpine"
+
+if [ -z "$SHIP" ]
+then
+	>&2 echo "Usage: $(basename $0) <ship>"
+	exit 1
+fi
+
+docker run -ti --rm \
+	--net host \
+	-v $(pwd)/${SHIP}:/urbit/${SHIP} \
+	--user $(id -u):$(id -g) \
+	${IMAGE} ${SHIP}
