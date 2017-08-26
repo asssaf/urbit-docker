@@ -10,11 +10,11 @@ RUN sed -i 's/\(export CFLAGS=".*\)"/\1 -D_GNU_SOURCE"/' /etc/abuild.conf
 
 RUN apk update
 
-COPY apkbuild/.abuild /home/sdk/.abuild
+USER sdk
 COPY apkbuild/APKBUILD /home/sdk/APKBUILD
 
-USER sdk
-RUN abuild -r
+# calling through the entrypoint script that handles private key generation
+RUN /usr/local/bin/docker-entrypoint.sh abuild -r
 
 
 FROM alpine:edge
