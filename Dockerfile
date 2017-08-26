@@ -1,3 +1,22 @@
+FROM danielguerra/alpine-sdk-build:edge as apkbuilder
+
+USER root
+
+# libsigsegv is available in testing branch
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+# fix a build issue
+RUN sed -i 's/\(export CFLAGS=".*\)"/\1 -D_GNU_SOURCE"/' /etc/abuild.conf
+
+RUN apk update
+
+COPY apkbuild/.abuild /home/sdk/.abuild
+COPY apkbuild/APKBUILD /home/sdk/APKBUILD
+
+USER sdk
+RUN abuild -r
+
+
 FROM alpine:edge
 
 ENV PV=0.4.5-r0
@@ -6,7 +25,7 @@ ENV PV=0.4.5-r0
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 RUN apk add --no-cache libsigsegv gmp openssl ncurses curl tmux
-RUN wget https://github.com/asssaf/urbit-docker-alpine/releases/download/$PV/urbit-$PV.apk
+COPY --from=apkbuilder /home/sdk/packages/home/x86_64/urbit-$PV.apk /
 RUN apk add --no-cache --allow-untrusted /urbit-$PV.apk
 
 RUN rm /urbit-$PV.apk
