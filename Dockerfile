@@ -19,7 +19,7 @@ RUN /usr/local/bin/docker-entrypoint.sh abuild -r
 
 FROM alpine:edge
 
-ENV PV=0.4.5-r0
+ENV PV=0.5.1-r0
 
 # libsigsegv is available in testing branch
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
