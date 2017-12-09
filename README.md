@@ -1,7 +1,7 @@
 # urbit-alpine-docker
 Minimal alpine linux based image for running [Urbit](https://urbit.org)
 
-The container pulls the urbit apk from the releases links of this github repository (see the APK section for details on building the apk).
+This container builds an APK and installs it. See the APK section for details on building the apk separately.
 
 ## Scripts
 The `scripts/` directory contains scripts for running and creating ships (by mapping the current directory as a volume inside the container).
