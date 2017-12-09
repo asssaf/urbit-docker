@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# run an urbit as a SNI backend for a nginx-proxy + let's encrypt setup
+# see jwilder/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion
+
+SHIP="$1"
+
+if [ -z "$SHIP" ]
+then
+	>&2 echo "Usage: $(basename $0) <ship>"
+	exit 1
+fi
+
+: ${IMAGE:="asssaf/urbit-alpine"}
+: ${LETSENCRYPT_DOMAIN:?"must be set"}
+: ${LETSENCRYPT_EMAIL:?"must be set"}
+
+LETSENCRYPT_HOST="${SHIP}.${LETSENCRYPT_DOMAIN}"
+VIRTUAL_HOST="${LETSENCRYPT_HOST}"
+
+docker run -t -d --name $SHIP \
+	--restart=unless-stopped \
+	-e "VIRTUAL_HOST=${VIRTUAL_HOST}" \
+	-e "LETSENCRYPT_HOST=${LETSENCRYPT_HOST}" \
+	-e "LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}" \
+	--expose 8080 \
+	-v $(pwd)/${SHIP}:/srv/${SHIP} \
+	--workdir /srv \
+	--user $(id -u):$(id -g) \
+	${IMAGE} -d ${SHIP}
