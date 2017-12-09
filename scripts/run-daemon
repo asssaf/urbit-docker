@@ -11,6 +11,7 @@ fi
 
 docker run -t -d --rm \
 	--net host \
-	-v $(pwd)/${SHIP}:/urbit/${SHIP} \
+	-v $(pwd)/${SHIP}:/srv/${SHIP} \
+	--workdir /srv \
 	--user $(id -u):$(id -g) \
 	${IMAGE} -d ${SHIP}

@@ -32,5 +32,6 @@ RUN rm /urbit-$PV.apk
 COPY entrypoint.sh /
 
 WORKDIR /urbit
-ENTRYPOINT [ "/entrypoint.sh" ]
+VOLUME /urbit
 
+ENTRYPOINT [ "/entrypoint.sh" ]
