@@ -1,4 +1,6 @@
 # urbit-alpine-docker
+[![Docker Build Status](https://img.shields.io/docker/build/asssaf/urbit-alpine.svg?style=flat)](https://hub.docker.com/r/asssaf/urbit-alpine/)
+
 Minimal alpine linux based image for running [Urbit](https://urbit.org)
 
 **Warning: Make sure you mount a volume for the `/urbit/$SHIP` directory in the container, otherwise you may lose the urbit's key and state unrecoverably! **. The provided create/run scripts do that for you, but be careful if running a custom docker command.
