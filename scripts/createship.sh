@@ -8,7 +8,7 @@ fi
 
 SHIP="$1"
 CODE="$2"
-IMAGE="asssaf/urbit-alpine"
+IMAGE="asssaf/urbit"
 
 docker run -ti --rm \
 	--net host \

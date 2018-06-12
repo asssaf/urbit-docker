@@ -11,7 +11,7 @@ then
 	exit 1
 fi
 
-: ${IMAGE:="asssaf/urbit-alpine"}
+: ${IMAGE:="asssaf/urbit"}
 : ${LETSENCRYPT_DOMAIN:?"must be set"}
 : ${LETSENCRYPT_EMAIL:?"must be set"}
 

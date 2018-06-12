@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SHIP="$1"
-IMAGE="asssaf/urbit-alpine"
+IMAGE="asssaf/urbit"
 
 if [ -z "$SHIP" ]
 then
