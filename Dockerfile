@@ -9,7 +9,13 @@ RUN echo 'deb http://http.debian.net/debian stretch-backports main contrib non-f
 RUN apt-get update
 RUN apt-get -y install -t stretch-backports meson ninja-build
 
-RUN git clone --recursive https://github.com/urbit/urbit
+RUN mkdir urbit \
+	&& cd urbit \
+	&& git init \
+	&& git remote add origin https://github.com/urbit/urbit.git \
+	&& git fetch --depth 1 origin tags/urbit-0.6.0 \
+	&& git checkout FETCH_HEAD \
+	&& git submodule update --init --depth 1 subprojects/*
 
 WORKDIR /urbit
 RUN sh ./scripts/build
