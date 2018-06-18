@@ -1,36 +1,37 @@
-FROM danielguerra/alpine-sdk-build:edge as apkbuilder
+FROM debian:stretch-slim as builder
 
-USER root
+RUN apt-get update
+RUN apt-get -y install git libgmp3-dev libsigsegv-dev openssl libssl-dev libncurses5-dev \
+  exuberant-ctags automake autoconf libtool g++ ragel re2c libcurl4-gnutls-dev curl \
+  zlib1g-dev patch pkg-config
 
-# libsigsegv is available in testing branch
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo 'deb http://http.debian.net/debian stretch-backports main contrib non-free' > /etc/apt/sources.list.d/stretch-backports.list
+RUN apt-get update
+RUN apt-get -y install -t stretch-backports meson ninja-build
 
-# fix a build issue
-RUN sed -i 's/\(export CFLAGS=".*\)"/\1 -D_GNU_SOURCE"/' /etc/abuild.conf
+RUN mkdir urbit \
+	&& cd urbit \
+	&& git init \
+	&& git remote add origin https://github.com/urbit/urbit.git \
+	&& git fetch --depth 1 origin tags/urbit-0.6.0 \
+	&& git checkout FETCH_HEAD \
+	&& git submodule update --init --depth 1 subprojects/*
 
-RUN apk update
-
-USER sdk
-COPY apkbuild/APKBUILD /home/sdk/APKBUILD
-
-# calling through the entrypoint script that handles private key generation
-RUN /usr/local/bin/docker-entrypoint.sh abuild -r
+WORKDIR /urbit
+RUN sh ./scripts/build
 
 
-FROM alpine:edge
+FROM debian:stretch-slim
 
-ENV PV=0.5.1-r0
+RUN apt-get update \
+        && apt-get -y install openssl libsigsegv2 libgmp10 libcurl3-gnutls tmux \
+        && rm -rf /var/lib/apt/lists/*
 
-# libsigsegv is available in testing branch
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+COPY --from=builder /urbit/build/urbit /usr/bin/
 
-RUN apk add --no-cache libsigsegv gmp openssl ncurses curl tmux
-COPY --from=apkbuilder /home/sdk/packages/home/x86_64/urbit-$PV.apk /
-RUN apk add --no-cache --allow-untrusted /urbit-$PV.apk
-
-RUN rm /urbit-$PV.apk
 COPY entrypoint.sh /
 
+ENV LANG C.UTF-8
 WORKDIR /urbit
 VOLUME /urbit
 

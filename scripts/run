@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SHIP="$1"
-IMAGE="asssaf/urbit-alpine"
+: ${URBIT_IMAGE:="asssaf/urbit:0.6.0-debian"}
 
 if [ -z "$SHIP" ]
 then
@@ -14,4 +14,4 @@ docker run -ti --rm \
 	-v $(pwd)/${SHIP}:/srv/${SHIP} \
 	--workdir /srv \
 	--user $(id -u):$(id -g) \
-	${IMAGE} ${SHIP}
+	${URBIT_IMAGE} ${SHIP}

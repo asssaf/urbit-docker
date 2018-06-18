@@ -8,10 +8,10 @@ fi
 
 SHIP="$1"
 CODE="$2"
-IMAGE="asssaf/urbit-alpine"
+: ${URBIT_IMAGE:="asssaf/urbit:0.6.0-debian"}
 
 docker run -ti --rm \
 	--net host \
 	-v $(pwd):/urbit \
 	--user $(id -u):$(id -g) \
-	${IMAGE} -w ${SHIP} -t ${CODE}
+	${URBIT_IMAGE} -w ${SHIP} -t ${CODE}
