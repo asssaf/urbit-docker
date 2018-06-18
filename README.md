@@ -1,7 +1,8 @@
-# urbit-alpine-docker
-[![Docker Build Status](https://img.shields.io/docker/build/asssaf/urbit-alpine.svg?style=flat)](https://hub.docker.com/r/asssaf/urbit-alpine/)
+# urbit-docker
+[![Docker Build Status](https://img.shields.io/docker/build/asssaf/urbit.svg?style=flat)](https://hub.docker.com/r/asssaf/urbit/)
+[![latest tag](https://img.shields.io/badge/latest-0.6.0--debian-blue.svg)](https://hub.docker.com/r/asssaf/urbit/tags/)
 
-Minimal alpine linux based image for running [Urbit](https://urbit.org)
+Minimal docker image for running [Urbit](https://urbit.org)
 
 **Warning: Make sure you mount a volume for the `/urbit/$SHIP` directory in the container, otherwise you may lose the urbit's key and state unrecoverably! **. The provided create/run scripts do that for you, but be careful if running a custom docker command.
 
@@ -18,6 +19,8 @@ $ scripts/run myship
 ...
 ```
 
+A non-default image can be selected by setting the `URBIT_IMAGE` environment variable.
+
 ### Run as daemon
 ```
 $ scripts/run-daemon myship
@@ -31,7 +34,16 @@ $ docker exec -ti <container-id> tmux attach
 
 Detach from the session using the tmux binding `C-b d`
 
-## APK
+## Image Variants
+### Debian
+Images tagged with `<version>-debian`, e.g. `0.6.0-debian`
+
+This is the default since urbit version 0.6.0. Debian images are around 73MB.
+
+### Alpine
+Alpine images are considerably smaller in size (around 15MB). They are not supported yet for urbit version 0.6.0.
+
+#### APK
 If you want to build the apk used by the container by yourself, you can find in the `apkbuild/` directory the APKBUILD script and a Makefile to build the apk using docker.
 
 ```
