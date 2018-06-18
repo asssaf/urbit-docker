@@ -11,7 +11,7 @@ then
 	exit 1
 fi
 
-: ${IMAGE:="asssaf/urbit"}
+: ${URBIT_IMAGE:="asssaf/urbit:0.6.0-debian"}
 : ${LETSENCRYPT_DOMAIN:?"must be set"}
 : ${LETSENCRYPT_EMAIL:?"must be set"}
 
@@ -27,4 +27,4 @@ docker run -t -d --name $SHIP \
 	-v $(pwd)/${SHIP}:/srv/${SHIP} \
 	--workdir /srv \
 	--user $(id -u):$(id -g) \
-	${IMAGE} -d ${SHIP}
+	${URBIT_IMAGE} -d ${SHIP}
