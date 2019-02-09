@@ -13,7 +13,7 @@ RUN mkdir urbit \
 	&& cd urbit \
 	&& git init \
 	&& git remote add origin https://github.com/urbit/urbit.git \
-	&& git fetch --depth 1 origin tags/v0.7.1 \
+	&& git fetch --depth 1 origin tags/v0.7.2 \
 	&& git checkout FETCH_HEAD \
 	&& git submodule update --init --depth 1 subprojects/*
 
