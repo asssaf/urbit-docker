@@ -8,7 +8,7 @@ fi
 
 SHIP="$1"
 KEY_FILE="$2"
-: ${URBIT_IMAGE:="asssaf/urbit:0.7.3-debian"}
+: ${URBIT_IMAGE:="asssaf/urbit:0.7.4-debian"}
 
 if [ ! -f "$KEY_FILE" ]
 then
