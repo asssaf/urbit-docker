@@ -11,7 +11,7 @@ then
 	exit 1
 fi
 
-: ${URBIT_IMAGE:="asssaf/urbit:0.7.4-debian"}
+: ${URBIT_IMAGE:="asssaf/urbit:0.8.0-nix"}
 : ${LETSENCRYPT_DOMAIN:?"must be set"}
 : ${LETSENCRYPT_EMAIL:?"must be set"}
 
