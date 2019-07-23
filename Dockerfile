@@ -1,11 +1,29 @@
-FROM debian:buster-slim
+FROM nixos/nix:latest as builder
 
-RUN apt-get update \
-        && apt-get -y install wget tmux \
-        && rm -rf /var/lib/apt/lists/*
+ARG branch
+RUN nix-env -iA nixpkgs.git
+RUN nix-env -iA nixpkgs.git-lfs
 
-RUN wget -O - https://bootstrap.urbit.org/urbit-linux64-v0.10.3.tgz \
-        | tar xvz --strip-components=1 -C /usr/bin/
+RUN git clone --branch ${branch} --depth 1 https://github.com/urbit/urbit.git /tmp/urbit
+
+WORKDIR /tmp/urbit
+
+RUN git lfs install
+RUN git lfs pull
+
+RUN nix-env -f . -iA urbit -iA herb
+
+ADD docker.nix /tmp/urbit/docker.nix
+RUN nix-build docker.nix
+RUN mkdir /image /output
+RUN tar xzf result -C /image
+RUN tar xf /image/*/layer.tar -C /output
+
+
+# create minimal image
+FROM busybox
+
+COPY --from=builder /output /
 
 COPY entrypoint.sh /
 
