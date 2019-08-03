@@ -7,7 +7,7 @@ then
 fi
 
 SHIP="$1"
-: ${URBIT_IMAGE:="asssaf/urbit:0.8.0-debian"}
+: ${URBIT_IMAGE:="asssaf/urbit:latest"}
 
 docker run -ti --rm \
 	--net host \

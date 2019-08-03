@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SHIP="$1"
-: ${URBIT_IMAGE:="asssaf/urbit:0.8.0-debian"}
+: ${URBIT_IMAGE:="asssaf/urbit:latest"}
 
 if [ -z "$SHIP" ]
 then
