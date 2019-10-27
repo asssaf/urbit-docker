@@ -4,7 +4,7 @@ RUN apt-get update \
         && apt-get -y install wget tmux \
         && rm -rf /var/lib/apt/lists/*
 
-RUN wget -O - https://bootstrap.urbit.org/urbit-linux64-v0.8.2.tgz \
+RUN wget -O - https://bootstrap.urbit.org/urbit-linux64-v0.9.1.tgz \
         | tar xvz -C /usr/bin/
 
 COPY entrypoint.sh /
