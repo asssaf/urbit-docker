@@ -5,7 +5,7 @@ RUN apt-get update \
         && rm -rf /var/lib/apt/lists/*
 
 RUN wget -O - https://bootstrap.urbit.org/urbit-linux64-v0.10.3.tgz \
-        | tar xvz -C /usr/bin/
+        | tar xvz --strip-components=1 -C /usr/bin/
 
 COPY entrypoint.sh /
 
