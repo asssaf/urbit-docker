@@ -1,6 +1,6 @@
 # urbit-docker
 [![Docker Build Status](https://img.shields.io/docker/build/asssaf/urbit.svg?style=flat)](https://hub.docker.com/r/asssaf/urbit/)
-[![latest tag](https://img.shields.io/badge/latest-urbit--os--v1.0.16--nix-blue.svg)](https://hub.docker.com/r/asssaf/urbit/tags/)
+[![latest tag](https://img.shields.io/badge/latest-urbit--os--v1.0.25--nix-blue.svg)](https://hub.docker.com/r/asssaf/urbit/tags/)
 
 Minimal docker image for running [Urbit](https://urbit.org)
 
