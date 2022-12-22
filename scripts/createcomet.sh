@@ -7,10 +7,10 @@ then
 fi
 
 SHIP="$1"
-: ${URBIT_IMAGE:="asssaf/urbit:latest"}
+: ${URBIT_IMAGE:="tloncorp/urbit:latest"}
 
 docker run -ti --rm \
 	--net host \
 	-v $(pwd):/urbit \
 	--user $(id -u):$(id -g) \
-	${URBIT_IMAGE} -c ${SHIP}
+	${URBIT_IMAGE} /bin/urbit -c ${SHIP}

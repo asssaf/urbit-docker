@@ -8,7 +8,7 @@ fi
 
 SHIP="$1"
 KEY_FILE="$2"
-: ${URBIT_IMAGE:="asssaf/urbit:latest"}
+: ${URBIT_IMAGE:="tloncorp/urbit:latest"}
 
 if [ ! -f "$KEY_FILE" ]
 then
@@ -23,4 +23,4 @@ docker run -ti --rm \
 	-v $(pwd):/urbit \
         -v "$ABS_KEY_FILE:/mnt/key_file:ro" \
 	--user $(id -u):$(id -g) \
-	${URBIT_IMAGE} -w ${SHIP} -k /mnt/key_file
+	${URBIT_IMAGE} /bin/urbit -w ${SHIP} -k /mnt/key_file
