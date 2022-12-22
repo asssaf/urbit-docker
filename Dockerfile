@@ -14,7 +14,7 @@ WORKDIR /tmp/urbit
 RUN git lfs install
 RUN git lfs pull
 
-RUN nix-env -f . -iA urbit -iA herb
+RUN nix-env -f . -iA urbit
 
 ADD docker.nix /tmp/urbit/docker.nix
 RUN nix-build docker.nix --show-trace
