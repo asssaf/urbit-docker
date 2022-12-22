@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SHIP="$1"
-: ${URBIT_IMAGE:="asssaf/urbit:latest"}
+: ${URBIT_IMAGE:="tloncorp/urbit:latest"}
 
 if [ -z "$SHIP" ]
 then
@@ -14,4 +14,4 @@ docker run -t -d --rm \
 	-v $(pwd)/${SHIP}:/srv/${SHIP} \
 	--workdir /srv \
 	--user $(id -u):$(id -g) \
-	${URBIT_IMAGE} -d ${SHIP}
+	${URBIT_IMAGE} /bin/urbit ${SHIP}

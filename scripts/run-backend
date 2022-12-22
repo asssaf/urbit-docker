@@ -11,7 +11,7 @@ then
 	exit 1
 fi
 
-: ${URBIT_IMAGE:="asssaf/urbit:latest"}
+: ${URBIT_IMAGE:="tloncorp/urbit:latest"}
 : ${LETSENCRYPT_DOMAIN:?"must be set"}
 : ${LETSENCRYPT_EMAIL:?"must be set"}
 
@@ -27,4 +27,4 @@ docker run -t -d --name $SHIP \
 	-v $(pwd)/${SHIP}:/srv/${SHIP} \
 	--workdir /srv \
 	--user $(id -u):$(id -g) \
-	${URBIT_IMAGE} -d ${SHIP}
+	${URBIT_IMAGE} /bin/urbit ${SHIP}
